@@ -1,22 +1,21 @@
 {
   "name": "vimium-newtab-skin",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 127.0.0.1",
     "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
+    "preview": "vite preview --host 127.0.0.1",
+    "check": "svelte-check --tsconfig ./tsconfig.json && tsc --noEmit"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^7.1.1",
-    "@tsconfig/svelte": "^5.0.8",
-    "svelte": "^5.55.5",
-    "svelte-check": "^4.4.8",
-    "tslib": "^2.8.1",
-    "typescript": "^6.0.3",
-    "vite": "^8.0.11",
-    "vite-plugin-monkey": "^8.0.0"
+    "@sveltejs/vite-plugin-svelte": "latest",
+    "svelte": "latest",
+    "svelte-check": "^4.6.0",
+    "typescript": "latest",
+    "vite": "latest",
+    "vite-plugin-monkey": "latest"
   }
 }
