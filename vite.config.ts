@@ -2,7 +2,7 @@ import { svelte } from "@sveltejs/vite-plugin-svelte";
 import { defineConfig } from "vite";
 import monkey from "vite-plugin-monkey";
 
-const browserVideoResourceUrl =
+const browserVideoUrl =
   "https://raw.githubusercontent.com/2005czq/vimium-newtab-skin/main/public/browser.mp4";
 
 export default defineConfig({
@@ -18,19 +18,13 @@ export default defineConfig({
         match: ["https://vimium.github.io/new-tab/*"],
         "run-at": "document-start",
         noframes: true,
-        grant: ["GM_addStyle", "GM_getResourceURL"],
-      },
-      build: {
-        externalResource: {
-          "/browser.mp4?url": {
-            resourceName: "browser",
-            resourceUrl: browserVideoResourceUrl,
-          },
-        },
-        externalGlobals: {},
+        grant: ["GM_addStyle"],
       },
     }),
   ],
+  define: {
+    __ZNT_VIDEO_URL__: JSON.stringify(browserVideoUrl),
+  },
   build: {
     minify: false,
     sourcemap: false,

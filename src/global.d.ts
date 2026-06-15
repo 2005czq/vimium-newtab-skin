@@ -5,3 +5,5 @@ declare module "*.svelte" {
 }
 
 declare const GM_addStyle: (css: string) => HTMLStyleElement | void;
+
+declare const __ZNT_VIDEO_URL__: string;

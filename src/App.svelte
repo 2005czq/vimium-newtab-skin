@@ -1,13 +1,15 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import type { TransitionConfig } from "svelte/transition";
-  import videoUrl from "/browser.mp4?url";
   import { fetchHitokotoQuote, hitokotoFallback } from "./lib/hitokoto";
   import { getClock, getGreeting, scheduleOnSecond, type Clock } from "./lib/time";
+  import { getVideoBlob } from "./lib/video-cache";
   import { watchVomnibar } from "./lib/vomnibar";
 
   const displayName = "Zihim";
   const greetingVisibleMs = 3000;
+  const videoCacheKey = "browser.mp4";
+  const videoUrl = __ZNT_VIDEO_URL__;
 
   let videoElement: HTMLVideoElement;
   let clock: Clock = getClock();
@@ -21,6 +23,7 @@
 
   const greetingEnterMs = 1000;
   const greetingExitMs = 900;
+  let objectUrl: string | null = null;
   let stopClock: (() => void) | undefined;
   let stopVomnibarWatch: (() => void) | undefined;
   let timeVisibleFrame: number | undefined;
@@ -76,8 +79,26 @@
     };
   }
 
-  function loadVideo() {
-    videoElement.src = videoUrl;
+  function releaseObjectUrl() {
+    if (!objectUrl) return;
+
+    URL.revokeObjectURL(objectUrl);
+    objectUrl = null;
+  }
+
+  async function loadVideo() {
+    try {
+      const blob = await getVideoBlob(videoCacheKey, videoUrl);
+      const nextObjectUrl = URL.createObjectURL(blob);
+      releaseObjectUrl();
+      objectUrl = nextObjectUrl;
+      videoElement.src = nextObjectUrl;
+    } catch (error) {
+      console.error("[Vimium New Tab Skin] Failed to use cached video", error);
+      releaseObjectUrl();
+      videoElement.src = videoUrl;
+    }
+
     videoElement.load();
   }
 
@@ -132,7 +153,7 @@
 
     showGreeting();
     void loadQuote();
-    loadVideo();
+    void loadVideo();
   });
 
   onDestroy(() => {
@@ -142,6 +163,7 @@
     if (timeVisibleFrame !== undefined) window.cancelAnimationFrame(timeVisibleFrame);
     for (const timer of greetingTimers) window.clearTimeout(timer);
     greetingTimers.clear();
+    releaseObjectUrl();
   });
 </script>
 
