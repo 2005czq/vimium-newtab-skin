@@ -20,6 +20,6 @@ dist/vimium-newtab-skin.user.js
 
 Open or import that file in Tampermonkey.
 
-# Credit
+## Credit
 
 Wallpaper: [Yor Forger | Spy x Family](https://steamcommunity.com/sharedfiles/filedetails/?id=2804817823)
