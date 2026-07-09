@@ -16,7 +16,7 @@ export default defineConfig({
         version: "0.1.0",
         description: "Apple-style video background, clock, and greeting overlay for Vimium's new tab page.",
         match: ["https://vimium.github.io/new-tab/*"],
-        "run-at": "document-start",
+        "run-at": "document-idle",
         noframes: true,
         grant: ["GM_addStyle"],
       },
