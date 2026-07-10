@@ -16,6 +16,7 @@ export const styles = String.raw`
   --znt-crust: 17 17 27;
   --znt-shadow: 17 17 27;
   --znt-corner-gap: clamp(18px, 2.4vw, 34px);
+  --znt-vomnibar-shade-opacity: 0.16;
   --znt-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --znt-ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -37,6 +38,7 @@ export const styles = String.raw`
     --znt-mantle: 230 233 239;
     --znt-crust: 220 224 232;
     --znt-shadow: 76 79 105;
+    --znt-vomnibar-shade-opacity: 0.1;
   }
 }
 
@@ -77,11 +79,21 @@ body > img {
   inset: 0;
   overflow: hidden;
   background: rgb(var(--znt-base));
-  transition: background-color 240ms var(--znt-ease-soft);
 }
 
-.znt-page.is-vomnibar-open {
-  background: rgb(var(--znt-mantle));
+.znt-page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background: rgb(var(--znt-shadow));
+  opacity: 0;
+  transition: opacity 240ms var(--znt-ease-soft);
+}
+
+.znt-page.is-vomnibar-open::after {
+  opacity: var(--znt-vomnibar-shade-opacity);
 }
 
 .znt-centerpiece {
@@ -111,11 +123,6 @@ body > img {
 .znt-time-stack.is-visible {
   opacity: 1;
   transform: translateY(0) scale(1);
-}
-
-.znt-page.is-vomnibar-open .znt-time-stack {
-  opacity: 0.58;
-  transform: scale(0.992);
 }
 
 .znt-clock {
@@ -251,10 +258,6 @@ body > img {
   transform: translateY(0);
 }
 
-.znt-page.is-vomnibar-open .znt-footer {
-  opacity: 0.34;
-}
-
 .znt-avatar {
   position: absolute;
   right: var(--znt-corner-gap);
@@ -278,10 +281,6 @@ body > img {
   height: 100%;
   display: block;
   object-fit: cover;
-}
-
-.znt-page.is-vomnibar-open .znt-avatar {
-  opacity: 0.4;
 }
 
 @media (max-width: 760px) {
@@ -323,7 +322,7 @@ body > img {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .znt-page,
+  .znt-page::after,
   .znt-time-stack,
   .znt-footer,
   .znt-quote {
