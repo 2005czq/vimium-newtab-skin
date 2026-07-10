@@ -20,11 +20,10 @@ export function getClock(date = new Date()): Clock {
 export function getGreeting(name: string, date = new Date()): string {
   const hour = date.getHours();
 
-  if (hour >= 5 && hour < 11) return `早上好，${name}`;
-  if (hour >= 11 && hour < 14) return `中午好，${name}`;
-  if (hour >= 14 && hour < 18) return `下午好，${name}`;
-  if (hour >= 18 && hour < 23) return `晚上好，${name}`;
-  return `夜深了，${name}`;
+  if (hour >= 5 && hour < 11) return `Good morning, ${name}.`;
+  if (hour >= 11 && hour < 18) return `Good afternoon, ${name}.`;
+  if (hour >= 18 && hour < 23) return `Good evening, ${name}.`;
+  return `It's late, ${name}.`;
 }
 
 export function scheduleOnSecond(callback: () => void): () => void {

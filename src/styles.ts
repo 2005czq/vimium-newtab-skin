@@ -195,7 +195,7 @@ body > img {
   max-width: calc(100vw - 48px);
   min-height: 42px;
   padding: 10px 24px 11px;
-  border: 1px solid rgb(var(--znt-mauve) / 0.58);
+  border: 0;
   border-radius: 14px;
   background: rgb(var(--znt-surface-0));
   color: rgb(var(--znt-text));
