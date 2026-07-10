@@ -24,10 +24,7 @@
   --vimium-ui-font: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
   --vimium-mono-font: "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
   --vimium-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --vimium-shadow:
-    0 20px 60px rgb(17 17 27 / 72%),
-    0 0 0 1px rgb(203 166 247 / 18%),
-    0 0 34px rgb(203 166 247 / 12%);
+  --vimium-shadow: 0 18px 48px rgb(17 17 27 / 64%);
 
   /* Variables consumed by some Vimium releases. */
   --vimium-foreground-text-color: var(--ctp-text);
@@ -68,18 +65,6 @@ body:has(#hud-container) {
   box-shadow: var(--vimium-shadow) !important;
   font-family: var(--vimium-ui-font) !important;
   animation: vimium-mocha-enter 220ms var(--vimium-ease-out) both !important;
-}
-
-#vomnibar::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 18px auto !important;
-  z-index: 3 !important;
-  height: 2px !important;
-  pointer-events: none !important;
-  background: var(--ctp-mauve) !important;
-  border-radius: 0 0 999px 999px !important;
-  box-shadow: 0 0 14px rgb(203 166 247 / 52%) !important;
 }
 
 #vomnibar-search-area,
@@ -204,9 +189,7 @@ body:has(#hud-container) {
 #vomnibar li.selected {
   color: var(--ctp-text) !important;
   background: var(--ctp-surface-0) !important;
-  box-shadow:
-    inset 3px 0 var(--ctp-mauve),
-    0 0 18px rgb(203 166 247 / 8%) !important;
+  box-shadow: inset 3px 0 var(--ctp-mauve) !important;
 }
 
 #vomnibar li.selected .source {
