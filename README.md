@@ -1,6 +1,7 @@
 # Vimium New Tab Skin
 
-A self-use skin for `https://vimium.github.io/new-tab/`.
+A Catppuccin Mocha skin for `https://vimium.github.io/new-tab/` with a video background,
+clock, greeting, and daily quote.
 
 ## Setup
 
@@ -21,5 +22,7 @@ dist/vimium-newtab-skin.user.js
 Open or import that file in Tampermonkey.
 
 ## Credit
+
+Color palette: [Catppuccin Mocha](https://catppuccin.com/palette/)
 
 Wallpaper: [Yor Forger | Spy x Family](https://steamcommunity.com/sharedfiles/filedetails/?id=2804817823)
