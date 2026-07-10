@@ -3,27 +3,21 @@
   import type { TransitionConfig } from "svelte/transition";
   import { fetchHitokotoQuote, hitokotoFallback } from "./lib/hitokoto";
   import { getClock, getGreeting, scheduleOnSecond, type Clock } from "./lib/time";
-  import { getVideoBlob } from "./lib/video-cache";
   import { watchVomnibar } from "./lib/vomnibar";
 
   const displayName = "Zihim";
   const greetingVisibleMs = 3000;
-  const videoCacheKey = "browser.mp4";
-  const videoUrl = __ZNT_VIDEO_URL__;
 
-  let videoElement: HTMLVideoElement;
   let clock: Clock = getClock();
   let greeting = getGreeting(displayName);
   let quote = hitokotoFallback;
   let greetingVisible = false;
   let quoteVisible = false;
   let timeVisible = false;
-  let videoReady = false;
   let vomnibarOpen = false;
 
   const greetingEnterMs = 1000;
   const greetingExitMs = 900;
-  let objectUrl: string | null = null;
   let stopClock: (() => void) | undefined;
   let stopVomnibarWatch: (() => void) | undefined;
   let timeVisibleFrame: number | undefined;
@@ -79,29 +73,6 @@
     };
   }
 
-  function releaseObjectUrl() {
-    if (!objectUrl) return;
-
-    URL.revokeObjectURL(objectUrl);
-    objectUrl = null;
-  }
-
-  async function loadVideo() {
-    try {
-      const blob = await getVideoBlob(videoCacheKey, videoUrl);
-      const nextObjectUrl = URL.createObjectURL(blob);
-      releaseObjectUrl();
-      objectUrl = nextObjectUrl;
-      videoElement.src = nextObjectUrl;
-    } catch (error) {
-      console.error("[Vimium New Tab Skin] Failed to use cached video", error);
-      releaseObjectUrl();
-      videoElement.src = videoUrl;
-    }
-
-    videoElement.load();
-  }
-
   function showGreeting() {
     greeting = getGreeting(displayName);
     greetingVisible = false;
@@ -153,7 +124,6 @@
 
     showGreeting();
     void loadQuote();
-    void loadVideo();
   });
 
   onDestroy(() => {
@@ -163,32 +133,10 @@
     if (timeVisibleFrame !== undefined) window.cancelAnimationFrame(timeVisibleFrame);
     for (const timer of greetingTimers) window.clearTimeout(timer);
     greetingTimers.clear();
-    releaseObjectUrl();
   });
 </script>
 
 <div class:is-vomnibar-open={vomnibarOpen} class="znt-page">
-  <div class="znt-stage" aria-hidden="true">
-    <div class="znt-video-shell">
-      <video
-        bind:this={videoElement}
-        class:is-ready={videoReady}
-        class="znt-video"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="auto"
-        on:canplay={() => {
-          videoReady = true;
-          void videoElement.play().catch(() => undefined);
-        }}
-      ></video>
-    </div>
-    <div class="znt-soft-shade"></div>
-    <div class="znt-frost"></div>
-  </div>
-
   <div class="znt-centerpiece">
     <div
       class:is-visible={timeVisible}

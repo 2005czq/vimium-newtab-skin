@@ -1,34 +1,42 @@
 export const styles = String.raw`
 :root {
   color-scheme: dark;
-  --znt-mocha-rosewater: 245 224 220;
-  --znt-mocha-flamingo: 242 205 205;
-  --znt-mocha-pink: 245 194 231;
-  --znt-mocha-mauve: 203 166 247;
-  --znt-mocha-red: 243 139 168;
-  --znt-mocha-maroon: 235 160 172;
-  --znt-mocha-peach: 250 179 135;
-  --znt-mocha-yellow: 249 226 175;
-  --znt-mocha-green: 166 227 161;
-  --znt-mocha-teal: 148 226 213;
-  --znt-mocha-sky: 137 220 235;
-  --znt-mocha-sapphire: 116 199 236;
-  --znt-mocha-blue: 137 180 250;
-  --znt-mocha-lavender: 180 190 254;
-  --znt-mocha-text: 205 214 244;
-  --znt-mocha-subtext-1: 186 194 222;
-  --znt-mocha-subtext-0: 166 173 200;
-  --znt-mocha-overlay-2: 147 153 178;
-  --znt-mocha-overlay-1: 127 132 156;
-  --znt-mocha-overlay-0: 108 112 134;
-  --znt-mocha-surface-2: 88 91 112;
-  --znt-mocha-surface-1: 69 71 90;
-  --znt-mocha-surface-0: 49 50 68;
-  --znt-mocha-base: 30 30 46;
-  --znt-mocha-mantle: 24 24 37;
-  --znt-mocha-crust: 17 17 27;
+  --znt-rosewater: 245 224 220;
+  --znt-mauve: 203 166 247;
+  --znt-blue: 137 180 250;
+  --znt-lavender: 180 190 254;
+  --znt-text: 205 214 244;
+  --znt-subtext-1: 186 194 222;
+  --znt-subtext-0: 166 173 200;
+  --znt-surface-2: 88 91 112;
+  --znt-surface-1: 69 71 90;
+  --znt-surface-0: 49 50 68;
+  --znt-base: 30 30 46;
+  --znt-mantle: 24 24 37;
+  --znt-crust: 17 17 27;
+  --znt-shadow: 17 17 27;
   --znt-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --znt-ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --znt-rosewater: 220 138 120;
+    --znt-mauve: 136 57 239;
+    --znt-blue: 30 102 245;
+    --znt-lavender: 114 135 253;
+    --znt-text: 76 79 105;
+    --znt-subtext-1: 92 95 119;
+    --znt-subtext-0: 108 111 133;
+    --znt-surface-2: 172 176 190;
+    --znt-surface-1: 188 192 204;
+    --znt-surface-0: 204 208 218;
+    --znt-base: 239 241 245;
+    --znt-mantle: 230 233 239;
+    --znt-crust: 220 224 232;
+    --znt-shadow: 76 79 105;
+  }
 }
 
 html,
@@ -38,7 +46,7 @@ body {
   min-height: 100% !important;
   margin: 0 !important;
   overflow: hidden !important;
-  background: rgb(var(--znt-mocha-base)) !important;
+  background: rgb(var(--znt-base)) !important;
 }
 
 body > img {
@@ -56,93 +64,23 @@ body > img {
   z-index: 1;
   overflow: hidden;
   pointer-events: none;
-  color: rgb(var(--znt-mocha-text));
+  color: rgb(var(--znt-text));
   font-family:
     "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono",
     monospace;
-  background: rgb(var(--znt-mocha-base));
+  background: rgb(var(--znt-base));
 }
 
-.znt-stage {
+.znt-page {
   position: absolute;
   inset: 0;
   overflow: hidden;
+  background: rgb(var(--znt-base));
+  transition: background-color 240ms var(--znt-ease-soft);
 }
 
-.znt-video-shell {
-  position: absolute;
-  inset: -4%;
-  background:
-    radial-gradient(circle at 50% 42%, rgb(var(--znt-mocha-lavender) / 0.16), transparent 38%),
-    linear-gradient(
-      to bottom,
-      rgb(var(--znt-mocha-base) / 0.18),
-      rgb(var(--znt-mocha-crust) / 0.72)
-    ),
-    rgb(var(--znt-mocha-base));
-}
-
-.znt-video {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  opacity: 0;
-  transform: scale(1.012);
-  filter: brightness(0.72) contrast(1.04) saturate(0.84);
-  transition:
-    opacity 1000ms var(--znt-ease-soft),
-    transform 1000ms var(--znt-ease-soft),
-    filter 1000ms var(--znt-ease-soft);
-  will-change: opacity, transform, filter;
-}
-
-.znt-video.is-ready {
-  opacity: 1;
-}
-
-.znt-page.is-vomnibar-open .znt-video {
-  transform: scale(1.036);
-  filter: blur(8px) brightness(0.5) contrast(1.03) saturate(0.72);
-}
-
-.znt-soft-shade {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 50% 30%, rgb(var(--znt-mocha-mauve) / 0.2), transparent 28%),
-    radial-gradient(circle at 14% 82%, rgb(var(--znt-mocha-blue) / 0.12), transparent 32%),
-    linear-gradient(
-      to bottom,
-      rgb(var(--znt-mocha-base) / 0.16),
-      rgb(var(--znt-mocha-crust) / 0.62)
-    );
-  opacity: 0.78;
-  transition: opacity 1000ms var(--znt-ease-soft);
-}
-
-.znt-frost {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  background: rgb(var(--znt-mocha-base) / 0.34);
-  backdrop-filter: blur(0) saturate(0.9);
-  -webkit-backdrop-filter: blur(0) saturate(0.9);
-  transition:
-    opacity 1000ms var(--znt-ease-soft),
-    backdrop-filter 1000ms var(--znt-ease-soft),
-    -webkit-backdrop-filter 1000ms var(--znt-ease-soft);
-  will-change: opacity, backdrop-filter;
-}
-
-.znt-page.is-vomnibar-open .znt-soft-shade {
-  opacity: 0.94;
-}
-
-.znt-page.is-vomnibar-open .znt-frost {
-  opacity: 1;
-  backdrop-filter: blur(14px) saturate(0.82);
-  -webkit-backdrop-filter: blur(14px) saturate(0.82);
+.znt-page.is-vomnibar-open {
+  background: rgb(var(--znt-mantle));
 }
 
 .znt-centerpiece {
@@ -165,9 +103,8 @@ body > img {
   opacity: 0;
   transform: translateY(8px) scale(0.992);
   transition:
-    opacity 900ms var(--znt-ease-out),
-    transform 1100ms var(--znt-ease-out),
-    filter 1250ms var(--znt-ease-soft);
+    opacity 600ms var(--znt-ease-out),
+    transform 700ms var(--znt-ease-out);
 }
 
 .znt-time-stack.is-visible {
@@ -176,7 +113,8 @@ body > img {
 }
 
 .znt-page.is-vomnibar-open .znt-time-stack {
-  filter: brightness(0.9) saturate(0.86);
+  opacity: 0.58;
+  transform: scale(0.992);
 }
 
 .znt-clock {
@@ -184,16 +122,13 @@ body > img {
   align-items: center;
   justify-content: center;
   gap: 0.018em;
-  color: rgb(var(--znt-mocha-text));
+  color: rgb(var(--znt-text));
   font-size: clamp(68px, 11.2vw, 156px);
   font-weight: 250;
   line-height: 1;
   letter-spacing: 0;
   font-feature-settings: "tnum" 1, "zero" 1;
   font-variant-numeric: tabular-nums;
-  text-shadow:
-    0 0 26px rgb(var(--znt-mocha-lavender) / 0.2),
-    0 18px 72px rgb(var(--znt-mocha-crust) / 0.88);
 }
 
 .znt-clock-part {
@@ -209,18 +144,17 @@ body > img {
   align-items: center;
   justify-content: center;
   margin-inline: -0.035em;
-  color: rgb(var(--znt-mocha-mauve));
+  color: rgb(var(--znt-mauve));
   font-weight: 250;
   line-height: 1;
   transform: translateY(-0.025em);
   animation: znt-colon-breathe 1000ms cubic-bezier(0.45, 0, 0.2, 1) infinite;
-  will-change: opacity;
 }
 
 @keyframes znt-colon-breathe {
   0%,
   100% {
-    opacity: 0.2;
+    opacity: 0.28;
   }
 
   50% {
@@ -229,13 +163,12 @@ body > img {
 }
 
 .znt-date {
-  color: rgb(var(--znt-mocha-subtext-0));
+  color: rgb(var(--znt-subtext-0));
   font-size: clamp(14px, 1.7vw, 22px);
   font-weight: 400;
   line-height: 1;
   letter-spacing: 0;
   font-variant-numeric: tabular-nums;
-  text-shadow: 0 10px 36px rgb(var(--znt-mocha-crust) / 0.86);
 }
 
 .znt-greeting {
@@ -250,20 +183,11 @@ body > img {
   max-width: calc(100vw - 48px);
   min-height: 42px;
   padding: 10px 24px 11px;
-  border: 1px solid rgb(var(--znt-mocha-mauve) / 0.5);
+  border: 1px solid rgb(var(--znt-mauve) / 0.58);
   border-radius: 14px;
-  background: linear-gradient(
-    135deg,
-    rgb(var(--znt-mocha-surface-0) / 0.94),
-    rgb(var(--znt-mocha-mantle) / 0.92)
-  );
-  color: rgb(var(--znt-mocha-text));
-  box-shadow:
-    0 20px 60px rgb(var(--znt-mocha-crust) / 0.58),
-    0 0 30px rgb(var(--znt-mocha-mauve) / 0.12),
-    inset 0 1px 0 rgb(var(--znt-mocha-lavender) / 0.16);
-  backdrop-filter: blur(24px) saturate(0.9);
-  -webkit-backdrop-filter: blur(24px) saturate(0.9);
+  background: rgb(var(--znt-surface-0));
+  color: rgb(var(--znt-text));
+  box-shadow: 0 10px 30px rgb(var(--znt-shadow) / 0.16);
   font-size: 15px;
   font-weight: 500;
   line-height: 1.2;
@@ -271,7 +195,6 @@ body > img {
   text-align: center;
   opacity: 1;
   transform: translate3d(-50%, 0, 0) scale(1);
-  will-change: opacity, transform;
 }
 
 .znt-quote {
@@ -282,15 +205,10 @@ body > img {
   width: auto;
   max-width: min(760px, calc(100vw - 48px));
   padding: 10px 16px;
-  border: 1px solid rgb(var(--znt-mocha-surface-1) / 0.72);
+  border: 1px solid rgb(var(--znt-surface-1));
   border-radius: 12px;
-  background: rgb(var(--znt-mocha-base) / 0.58);
-  color: rgb(var(--znt-mocha-subtext-1));
-  box-shadow:
-    0 12px 40px rgb(var(--znt-mocha-crust) / 0.46),
-    inset 0 1px 0 rgb(var(--znt-mocha-lavender) / 0.08);
-  backdrop-filter: blur(14px) saturate(0.86);
-  -webkit-backdrop-filter: blur(14px) saturate(0.86);
+  background: rgb(var(--znt-surface-0));
+  color: rgb(var(--znt-subtext-1));
   font-size: clamp(11px, 1.05vw, 14px);
   font-weight: 400;
   line-height: 1.35;
@@ -300,14 +218,11 @@ body > img {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-  text-shadow: 0 8px 28px rgb(var(--znt-mocha-crust) / 0.82);
   opacity: 0;
   transform: translate3d(-50%, 8px, 0) scale(0.992);
   transition:
-    opacity 900ms var(--znt-ease-out),
-    transform 1100ms var(--znt-ease-out),
-    filter 1250ms var(--znt-ease-soft);
-  will-change: opacity, transform;
+    opacity 600ms var(--znt-ease-out),
+    transform 700ms var(--znt-ease-out);
 }
 
 .znt-quote.is-visible {
@@ -316,7 +231,7 @@ body > img {
 }
 
 .znt-page.is-vomnibar-open .znt-quote {
-  filter: brightness(0.86) saturate(0.82);
+  opacity: 0.46;
 }
 
 @media (max-width: 760px) {
@@ -340,6 +255,19 @@ body > img {
     max-width: calc(100vw - 32px);
     font-size: 11px;
     -webkit-line-clamp: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .znt-page,
+  .znt-time-stack,
+  .znt-quote {
+    transition: none;
+  }
+
+  .znt-clock-colon {
+    animation: none;
+    opacity: 1;
   }
 }
 
