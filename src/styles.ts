@@ -16,7 +16,7 @@ export const styles = String.raw`
   --znt-crust: 17 17 27;
   --znt-shadow: 17 17 27;
   --znt-corner-gap: clamp(18px, 2.4vw, 34px);
-  --znt-vomnibar-shade-opacity: 0.16;
+  --znt-vomnibar-shade-opacity: 0.24;
   --znt-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --znt-ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -38,7 +38,7 @@ export const styles = String.raw`
     --znt-mantle: 230 233 239;
     --znt-crust: 220 224 232;
     --znt-shadow: 76 79 105;
-    --znt-vomnibar-shade-opacity: 0.1;
+    --znt-vomnibar-shade-opacity: 0.16;
   }
 }
 
@@ -228,7 +228,7 @@ body > img {
   width: 100%;
   height: auto;
   display: block;
-  transform: translateY(-8px);
+  transform: translateY(-16px);
 }
 
 .znt-quote {
