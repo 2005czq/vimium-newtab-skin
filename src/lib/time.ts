@@ -6,14 +6,14 @@ export type Clock = {
 };
 
 const pad2 = (value: number) => String(value).padStart(2, "0");
-const weekdays = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+const weekdays = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
 
 export function getClock(date = new Date()): Clock {
   return {
     hours: pad2(date.getHours()),
     minutes: pad2(date.getMinutes()),
     seconds: pad2(date.getSeconds()),
-    dateLabel: `${date.getFullYear()}年${pad2(date.getMonth() + 1)}月${pad2(date.getDate())}日 ${weekdays[date.getDay()]}`,
+    dateLabel: `${pad2(date.getMonth() + 1)}/${pad2(date.getDate())}/${date.getFullYear()} ${weekdays[date.getDay()]}`,
   };
 }
 
