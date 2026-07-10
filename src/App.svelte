@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onDestroy, onMount } from "svelte";
   import type { TransitionConfig } from "svelte/transition";
+  import CatppuccinAvatar from "./lib/CatppuccinAvatar.svelte";
+  import CatppuccinFooter from "./lib/CatppuccinFooter.svelte";
   import { fetchHitokotoQuote, hitokotoFallback } from "./lib/hitokoto";
   import { getClock, getGreeting, scheduleOnSecond, type Clock } from "./lib/time";
   import { watchVomnibar } from "./lib/vomnibar";
@@ -158,5 +160,10 @@
     <div class="znt-greeting" in:greetingIntro out:greetingOutro>{greeting}</div>
   {/if}
 
-  <div class:is-visible={timeVisible && quoteVisible} class="znt-quote">{quote}</div>
+  <div class="znt-footer">
+    <CatppuccinFooter />
+    <div class:is-visible={timeVisible && quoteVisible} class="znt-quote">{quote}</div>
+  </div>
+
+  <CatppuccinAvatar />
 </div>
