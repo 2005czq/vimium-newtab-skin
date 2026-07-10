@@ -1,6 +1,32 @@
 export const styles = String.raw`
 :root {
   color-scheme: dark;
+  --znt-mocha-rosewater: 245 224 220;
+  --znt-mocha-flamingo: 242 205 205;
+  --znt-mocha-pink: 245 194 231;
+  --znt-mocha-mauve: 203 166 247;
+  --znt-mocha-red: 243 139 168;
+  --znt-mocha-maroon: 235 160 172;
+  --znt-mocha-peach: 250 179 135;
+  --znt-mocha-yellow: 249 226 175;
+  --znt-mocha-green: 166 227 161;
+  --znt-mocha-teal: 148 226 213;
+  --znt-mocha-sky: 137 220 235;
+  --znt-mocha-sapphire: 116 199 236;
+  --znt-mocha-blue: 137 180 250;
+  --znt-mocha-lavender: 180 190 254;
+  --znt-mocha-text: 205 214 244;
+  --znt-mocha-subtext-1: 186 194 222;
+  --znt-mocha-subtext-0: 166 173 200;
+  --znt-mocha-overlay-2: 147 153 178;
+  --znt-mocha-overlay-1: 127 132 156;
+  --znt-mocha-overlay-0: 108 112 134;
+  --znt-mocha-surface-2: 88 91 112;
+  --znt-mocha-surface-1: 69 71 90;
+  --znt-mocha-surface-0: 49 50 68;
+  --znt-mocha-base: 30 30 46;
+  --znt-mocha-mantle: 24 24 37;
+  --znt-mocha-crust: 17 17 27;
   --znt-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --znt-ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -12,7 +38,7 @@ body {
   min-height: 100% !important;
   margin: 0 !important;
   overflow: hidden !important;
-  background: #000 !important;
+  background: rgb(var(--znt-mocha-base)) !important;
 }
 
 body > img {
@@ -30,11 +56,11 @@ body > img {
   z-index: 1;
   overflow: hidden;
   pointer-events: none;
-  color: rgba(255, 255, 255, 0.96);
+  color: rgb(var(--znt-mocha-text));
   font-family:
-    "SF Pro Display", "SF Pro Text", "Segoe UI Variable Display", "Segoe UI",
-    Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #000;
+    "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono",
+    monospace;
+  background: rgb(var(--znt-mocha-base));
 }
 
 .znt-stage {
@@ -47,8 +73,13 @@ body > img {
   position: absolute;
   inset: -4%;
   background:
-    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.07), transparent 38%),
-    #000;
+    radial-gradient(circle at 50% 42%, rgb(var(--znt-mocha-lavender) / 0.16), transparent 38%),
+    linear-gradient(
+      to bottom,
+      rgb(var(--znt-mocha-base) / 0.18),
+      rgb(var(--znt-mocha-crust) / 0.72)
+    ),
+    rgb(var(--znt-mocha-base));
 }
 
 .znt-video {
@@ -58,7 +89,7 @@ body > img {
   object-fit: cover;
   opacity: 0;
   transform: scale(1.012);
-  filter: brightness(0.78) contrast(1.02) saturate(1.03);
+  filter: brightness(0.72) contrast(1.04) saturate(0.84);
   transition:
     opacity 1000ms var(--znt-ease-soft),
     transform 1000ms var(--znt-ease-soft),
@@ -72,16 +103,21 @@ body > img {
 
 .znt-page.is-vomnibar-open .znt-video {
   transform: scale(1.036);
-  filter: blur(7px) brightness(0.58) contrast(1.01) saturate(1.02);
+  filter: blur(8px) brightness(0.5) contrast(1.03) saturate(0.72);
 }
 
 .znt-soft-shade {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 32%, rgba(255, 255, 255, 0.09), transparent 26%),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.48));
-  opacity: 0.72;
+    radial-gradient(circle at 50% 30%, rgb(var(--znt-mocha-mauve) / 0.2), transparent 28%),
+    radial-gradient(circle at 14% 82%, rgb(var(--znt-mocha-blue) / 0.12), transparent 32%),
+    linear-gradient(
+      to bottom,
+      rgb(var(--znt-mocha-base) / 0.16),
+      rgb(var(--znt-mocha-crust) / 0.62)
+    );
+  opacity: 0.78;
   transition: opacity 1000ms var(--znt-ease-soft);
 }
 
@@ -89,9 +125,9 @@ body > img {
   position: absolute;
   inset: 0;
   opacity: 0;
-  background: rgba(255, 255, 255, 0.035);
-  backdrop-filter: blur(0px) saturate(1.04);
-  -webkit-backdrop-filter: blur(0px) saturate(1.04);
+  background: rgb(var(--znt-mocha-base) / 0.34);
+  backdrop-filter: blur(0) saturate(0.9);
+  -webkit-backdrop-filter: blur(0) saturate(0.9);
   transition:
     opacity 1000ms var(--znt-ease-soft),
     backdrop-filter 1000ms var(--znt-ease-soft),
@@ -100,13 +136,13 @@ body > img {
 }
 
 .znt-page.is-vomnibar-open .znt-soft-shade {
-  opacity: 0.86;
+  opacity: 0.94;
 }
 
 .znt-page.is-vomnibar-open .znt-frost {
   opacity: 1;
-  backdrop-filter: blur(12px) saturate(1.12);
-  -webkit-backdrop-filter: blur(12px) saturate(1.12);
+  backdrop-filter: blur(14px) saturate(0.82);
+  -webkit-backdrop-filter: blur(14px) saturate(0.82);
 }
 
 .znt-centerpiece {
@@ -140,7 +176,7 @@ body > img {
 }
 
 .znt-page.is-vomnibar-open .znt-time-stack {
-  filter: brightness(0.94);
+  filter: brightness(0.9) saturate(0.86);
 }
 
 .znt-clock {
@@ -148,15 +184,16 @@ body > img {
   align-items: center;
   justify-content: center;
   gap: 0.018em;
-  color: rgba(255, 255, 255, 0.96);
+  color: rgb(var(--znt-mocha-text));
   font-size: clamp(68px, 11.2vw, 156px);
-  font-weight: 200;
+  font-weight: 250;
   line-height: 1;
   letter-spacing: 0;
+  font-feature-settings: "tnum" 1, "zero" 1;
   font-variant-numeric: tabular-nums;
   text-shadow:
-    0 1px 1px rgba(255, 255, 255, 0.16),
-    0 18px 72px rgba(0, 0, 0, 0.82);
+    0 0 26px rgb(var(--znt-mocha-lavender) / 0.2),
+    0 18px 72px rgb(var(--znt-mocha-crust) / 0.88);
 }
 
 .znt-clock-part {
@@ -172,8 +209,8 @@ body > img {
   align-items: center;
   justify-content: center;
   margin-inline: -0.035em;
-  color: rgba(255, 255, 255, 0.94);
-  font-weight: 180;
+  color: rgb(var(--znt-mocha-mauve));
+  font-weight: 250;
   line-height: 1;
   transform: translateY(-0.025em);
   animation: znt-colon-breathe 1000ms cubic-bezier(0.45, 0, 0.2, 1) infinite;
@@ -192,13 +229,13 @@ body > img {
 }
 
 .znt-date {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgb(var(--znt-mocha-subtext-0));
   font-size: clamp(14px, 1.7vw, 22px);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1;
   letter-spacing: 0;
   font-variant-numeric: tabular-nums;
-  text-shadow: 0 10px 36px rgba(0, 0, 0, 0.82);
+  text-shadow: 0 10px 36px rgb(var(--znt-mocha-crust) / 0.86);
 }
 
 .znt-greeting {
@@ -213,17 +250,22 @@ body > img {
   max-width: calc(100vw - 48px);
   min-height: 42px;
   padding: 10px 24px 11px;
-  border: 1px solid rgba(255, 255, 255, 0.42);
-  border-radius: 999px;
-  background: rgba(248, 248, 248, 0.9);
-  color: rgba(0, 0, 0, 0.82);
+  border: 1px solid rgb(var(--znt-mocha-mauve) / 0.5);
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    rgb(var(--znt-mocha-surface-0) / 0.94),
+    rgb(var(--znt-mocha-mantle) / 0.92)
+  );
+  color: rgb(var(--znt-mocha-text));
   box-shadow:
-    0 24px 70px rgba(0, 0, 0, 0.42),
-    inset 0 1px 0 rgba(255, 255, 255, 0.68);
-  backdrop-filter: blur(26px) saturate(1.35);
-  -webkit-backdrop-filter: blur(26px) saturate(1.35);
+    0 20px 60px rgb(var(--znt-mocha-crust) / 0.58),
+    0 0 30px rgb(var(--znt-mocha-mauve) / 0.12),
+    inset 0 1px 0 rgb(var(--znt-mocha-lavender) / 0.16);
+  backdrop-filter: blur(24px) saturate(0.9);
+  -webkit-backdrop-filter: blur(24px) saturate(0.9);
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0;
   text-align: center;
@@ -239,9 +281,18 @@ body > img {
   z-index: 4;
   width: auto;
   max-width: min(760px, calc(100vw - 48px));
-  color: rgba(255, 255, 255, 0.72);
+  padding: 10px 16px;
+  border: 1px solid rgb(var(--znt-mocha-surface-1) / 0.72);
+  border-radius: 12px;
+  background: rgb(var(--znt-mocha-base) / 0.58);
+  color: rgb(var(--znt-mocha-subtext-1));
+  box-shadow:
+    0 12px 40px rgb(var(--znt-mocha-crust) / 0.46),
+    inset 0 1px 0 rgb(var(--znt-mocha-lavender) / 0.08);
+  backdrop-filter: blur(14px) saturate(0.86);
+  -webkit-backdrop-filter: blur(14px) saturate(0.86);
   font-size: clamp(11px, 1.05vw, 14px);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.35;
   letter-spacing: 0;
   overflow: hidden;
@@ -249,7 +300,7 @@ body > img {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
-  text-shadow: 0 10px 36px rgba(0, 0, 0, 0.82);
+  text-shadow: 0 8px 28px rgb(var(--znt-mocha-crust) / 0.82);
   opacity: 0;
   transform: translate3d(-50%, 8px, 0) scale(0.992);
   transition:
@@ -265,7 +316,7 @@ body > img {
 }
 
 .znt-page.is-vomnibar-open .znt-quote {
-  filter: brightness(0.92);
+  filter: brightness(0.86) saturate(0.82);
 }
 
 @media (max-width: 760px) {
