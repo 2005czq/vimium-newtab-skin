@@ -160,12 +160,13 @@ body > img {
   line-height: 1;
   transform: translateY(-0.025em);
   animation: znt-colon-breathe 1000ms cubic-bezier(0.45, 0, 0.2, 1) infinite;
+  will-change: opacity;
 }
 
 @keyframes znt-colon-breathe {
   0%,
   100% {
-    opacity: 0.28;
+    opacity: 0.2;
   }
 
   50% {
