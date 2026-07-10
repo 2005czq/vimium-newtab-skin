@@ -15,6 +15,7 @@ export const styles = String.raw`
   --znt-mantle: 24 24 37;
   --znt-crust: 17 17 27;
   --znt-shadow: 17 17 27;
+  --znt-on-accent: 17 17 27;
   --znt-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --znt-ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -36,6 +37,7 @@ export const styles = String.raw`
     --znt-mantle: 230 233 239;
     --znt-crust: 220 224 232;
     --znt-shadow: 76 79 105;
+    --znt-on-accent: 239 241 245;
   }
 }
 
@@ -205,10 +207,10 @@ body > img {
   width: auto;
   max-width: min(760px, calc(100vw - 48px));
   padding: 10px 16px;
-  border: 1px solid rgb(var(--znt-surface-1));
+  border: 0;
   border-radius: 12px;
-  background: rgb(var(--znt-surface-0));
-  color: rgb(var(--znt-subtext-1));
+  background: rgb(var(--znt-mauve));
+  color: rgb(var(--znt-on-accent));
   font-size: clamp(11px, 1.05vw, 14px);
   font-weight: 400;
   line-height: 1.35;
