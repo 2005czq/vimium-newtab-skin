@@ -8,10 +8,12 @@
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "check": "svelte-check --tsconfig ./tsconfig.json && tsc --noEmit"
+    "check": "svelte-check --tsconfig ./tsconfig.json && tsc --noEmit",
+    "css:minify": "node scripts/minify-css.mjs"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "latest",
+    "lightningcss": "1.32.0",
     "svelte": "latest",
     "svelte-check": "^4.6.0",
     "typescript": "latest",
