@@ -1,7 +1,8 @@
 # Vimium New Tab Skin
 
-A Catppuccin Mocha skin for `https://vimium.github.io/new-tab/` with a video background,
-clock, greeting, and daily quote.
+A lightweight Catppuccin skin for `https://vimium.github.io/new-tab/` with a solid
+background, glowing clock, greeting, and daily quote. It follows the system color scheme,
+using Latte in light mode and Mocha in dark mode.
 
 ## Setup
 
@@ -23,6 +24,5 @@ Open or import that file in Tampermonkey.
 
 ## Credit
 
-Color palette: [Catppuccin Mocha](https://catppuccin.com/palette/)
-
-Wallpaper: [Yor Forger | Spy x Family](https://steamcommunity.com/sharedfiles/filedetails/?id=2804817823)
+Palette, footer artwork, and avatars: [Catppuccin](https://github.com/catppuccin/catppuccin)
+(MIT License)
