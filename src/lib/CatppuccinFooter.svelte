@@ -29,9 +29,25 @@
     />
     <path transform="translate(92.3579 4.11772)" d="M110.074 10.347c3.543 0 4.374 4.288 7.066 4.288" />
     <path transform="translate(92.3579 4.11772)" d="M112.568 9.074s-1.015-2.334-1.891-2.334-2.14 2.429-2.14 2.429" />
-    <path transform="matrix(3.96613 0 0 5.89452 -177.012 -336.835)" d="M93.717 66.428h101.93" />
-    <path transform="matrix(1.78906 0 0 2.78204 -166.7 -130.078)" d="M93.717 66.428h101.93" />
   </g>
+  <path
+    transform="matrix(3.96613 0 0 5.89452 -177.012 -336.835)"
+    d="M93.717 66.428h101.93"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="0.3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    transform="matrix(1.78906 0 0 2.78204 -166.7 -130.078)"
+    d="M93.717 66.428h101.93"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="0.64"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
   <ellipse
     transform="matrix(1.00474 -.404483 .370766 .920982 85.4108 49.8267)"
     cx="111.892"

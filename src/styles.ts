@@ -15,6 +15,7 @@ export const styles = String.raw`
   --znt-mantle: 24 24 37;
   --znt-crust: 17 17 27;
   --znt-shadow: 17 17 27;
+  --znt-corner-gap: clamp(18px, 2.4vw, 34px);
   --znt-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --znt-ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -219,6 +220,7 @@ body > img {
   width: 100%;
   height: auto;
   display: block;
+  transform: translateY(-8px);
 }
 
 .znt-quote {
@@ -255,15 +257,18 @@ body > img {
 
 .znt-avatar {
   position: absolute;
-  right: clamp(18px, 2.4vw, 34px);
-  bottom: max(18px, env(safe-area-inset-bottom));
+  right: var(--znt-corner-gap);
+  bottom: var(--znt-corner-gap);
   z-index: 5;
   width: clamp(38px, 3.5vw, 50px);
   height: clamp(38px, 3.5vw, 50px);
   display: block;
   overflow: hidden;
   border-radius: clamp(9px, 0.8vw, 12px);
-  box-shadow: 0 6px 18px rgb(var(--znt-shadow) / 0.18);
+  box-shadow:
+    0 0 16px rgb(var(--znt-lavender) / 0.34),
+    0 0 36px rgb(var(--znt-mauve) / 0.22),
+    0 6px 18px rgb(var(--znt-shadow) / 0.18);
   opacity: 0.92;
   transition: opacity 240ms var(--znt-ease-soft);
 }
@@ -280,6 +285,10 @@ body > img {
 }
 
 @media (max-width: 760px) {
+  :root {
+    --znt-corner-gap: 14px;
+  }
+
   .znt-clock {
     font-size: clamp(50px, 15.5vw, 96px);
   }
@@ -307,8 +316,6 @@ body > img {
   }
 
   .znt-avatar {
-    right: 14px;
-    bottom: max(14px, env(safe-area-inset-bottom));
     width: 38px;
     height: 38px;
     border-radius: 9px;
