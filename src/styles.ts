@@ -223,7 +223,10 @@ body > img {
   padding: 0;
   border: 0;
   background: transparent;
+  pointer-events: auto;
   color: inherit;
+  cursor: pointer;
+  font-family: inherit;
   font-size: clamp(11px, 1.05vw, 14px);
   font-weight: 400;
   line-height: 1.35;

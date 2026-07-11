@@ -25,6 +25,7 @@ function buildHitokotoUrl(): string {
   url.searchParams.set("charset", "utf-8");
   url.searchParams.set("min_length", String(minLength));
   url.searchParams.set("max_length", String(maxQuoteLength));
+  url.searchParams.set("_", String(Date.now()));
 
   return url.toString();
 }

@@ -17,6 +17,7 @@
   let quoteVisible = false;
   let timeVisible = false;
   let vomnibarOpen = false;
+  let quoteController: AbortController | undefined;
 
   const greetingEnterMs = 1000;
   const greetingExitMs = 900;
@@ -61,16 +62,24 @@
     };
   }
 
-  async function loadQuote(signal: AbortSignal) {
+  async function loadQuote() {
+    quoteController?.abort();
+    const controller = new AbortController();
+    quoteController = controller;
+
     try {
-      quote = await fetchHitokotoQuote(signal);
+      const nextQuote = await fetchHitokotoQuote(controller.signal);
+      if (quoteController !== controller) return;
+      quote = nextQuote;
     } catch (error) {
-      if (signal.aborted) return;
+      if (controller.signal.aborted || quoteController !== controller) return;
       console.error("[Vimium New Tab Skin] Failed to load hitokoto", error);
-      quote = hitokotoFallback;
+      if (!quoteVisible) quote = hitokotoFallback;
+    } finally {
+      if (quoteController === controller) quoteController = undefined;
     }
 
-    if (!signal.aborted) quoteVisible = true;
+    if (!controller.signal.aborted) quoteVisible = true;
   }
 
   onMount(() => {
@@ -95,11 +104,10 @@
       greetingVisible = false;
     }, 120 + greetingEnterMs + greetingVisibleMs);
 
-    const quoteController = new AbortController();
-    void loadQuote(quoteController.signal);
+    void loadQuote();
 
     return () => {
-      quoteController.abort();
+      quoteController?.abort();
       stopClock();
       stopVomnibarWatch();
       window.cancelAnimationFrame(timeVisibleFrame);
@@ -133,7 +141,15 @@
 
   <div class="znt-footer">
     <CatppuccinFooter />
-    <div class:is-visible={timeVisible && quoteVisible} class="znt-quote">{quote}</div>
+    <button
+      class:is-visible={timeVisible && quoteVisible}
+      class="znt-quote"
+      type="button"
+      title="点击刷新一言"
+      onclick={() => void loadQuote()}
+    >
+      {quote}
+    </button>
   </div>
 
   <CatppuccinAvatar />
