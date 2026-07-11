@@ -1,8 +1,7 @@
 const hitokotoEndpoint = "https://v1.hitokoto.cn/";
 const hitokotoTypes = ["d", "i", "k"] as const;
 const minLength = 6;
-const maxLength = 120;
-const maxDisplayLength = 120;
+const maxQuoteLength = 120;
 const maxAttempts = 3;
 const retryDelayMs = 650;
 const requestTimeoutMs = 2800;
@@ -25,7 +24,7 @@ function buildHitokotoUrl(): string {
   url.searchParams.set("encode", "json");
   url.searchParams.set("charset", "utf-8");
   url.searchParams.set("min_length", String(minLength));
-  url.searchParams.set("max_length", String(maxLength));
+  url.searchParams.set("max_length", String(maxQuoteLength));
 
   return url.toString();
 }
@@ -43,10 +42,6 @@ function normalizeSource(source: unknown): string | undefined {
   return normalized || undefined;
 }
 
-function formatQuote(sentence: string, source?: string): string {
-  return source ? `${sentence}——${source}` : sentence;
-}
-
 function parseHitokoto(data: HitokotoResponse): string | undefined {
   if (typeof data.hitokoto !== "string") return undefined;
 
@@ -54,7 +49,7 @@ function parseHitokoto(data: HitokotoResponse): string | undefined {
   if (!sentence) return undefined;
 
   const source = normalizeSource(data.from_who) ?? normalizeSource(data.from);
-  return formatQuote(sentence, source);
+  return source ? `${sentence}——${source}` : sentence;
 }
 
 function wait(ms: number, signal?: AbortSignal): Promise<void> {
@@ -109,7 +104,7 @@ export async function fetchHitokotoQuote(signal?: AbortSignal): Promise<string> 
   for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
     const quote = await requestHitokotoQuote(signal);
 
-    if (quote && quote.length <= maxDisplayLength) {
+    if (quote && quote.length <= maxQuoteLength) {
       return quote;
     }
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy, onMount } from "svelte";
+  import { onMount } from "svelte";
   import type { TransitionConfig } from "svelte/transition";
   import CatppuccinAvatar from "./lib/CatppuccinAvatar.svelte";
   import CatppuccinFooter from "./lib/CatppuccinFooter.svelte";
@@ -11,7 +11,7 @@
   const greetingVisibleMs = 3000;
 
   let clock: Clock = getClock();
-  let greeting = getGreeting(displayName);
+  const greeting = getGreeting(displayName);
   let quote = hitokotoFallback;
   let greetingVisible = false;
   let quoteVisible = false;
@@ -20,20 +20,6 @@
 
   const greetingEnterMs = 1000;
   const greetingExitMs = 900;
-  let stopClock: (() => void) | undefined;
-  let stopVomnibarWatch: (() => void) | undefined;
-  let timeVisibleFrame: number | undefined;
-  let quoteController: AbortController | undefined;
-  const greetingTimers = new Set<number>();
-
-  function scheduleGreetingTimer(callback: () => void, delay: number) {
-    const timer = window.setTimeout(() => {
-      greetingTimers.delete(timer);
-      callback();
-    }, delay);
-    greetingTimers.add(timer);
-  }
-
   function clamp(value: number, min = 0, max = 1) {
     return Math.min(max, Math.max(min, value));
   }
@@ -75,66 +61,51 @@
     };
   }
 
-  function showGreeting() {
-    greeting = getGreeting(displayName);
-    greetingVisible = false;
-
-    scheduleGreetingTimer(() => {
-      greetingVisible = true;
-    }, 120);
-
-    scheduleGreetingTimer(() => {
-      greetingVisible = false;
-    }, 120 + greetingEnterMs + greetingVisibleMs);
-  }
-
-  async function loadQuote() {
-    quoteController?.abort();
-    const controller = new AbortController();
-    quoteController = controller;
-
+  async function loadQuote(signal: AbortSignal) {
     try {
-      quote = await fetchHitokotoQuote(controller.signal);
+      quote = await fetchHitokotoQuote(signal);
     } catch (error) {
-      if (controller.signal.aborted) return;
-
-      if (quoteController === controller) {
-        console.error("[Vimium New Tab Skin] Failed to load hitokoto", error);
-      }
+      if (signal.aborted) return;
+      console.error("[Vimium New Tab Skin] Failed to load hitokoto", error);
       quote = hitokotoFallback;
     }
 
-    if (controller.signal.aborted || quoteController !== controller) return;
-
-    quoteVisible = true;
+    if (!signal.aborted) quoteVisible = true;
   }
 
   onMount(() => {
-    timeVisibleFrame = window.requestAnimationFrame(() => {
+    let timeVisibleFrame = window.requestAnimationFrame(() => {
       timeVisibleFrame = window.requestAnimationFrame(() => {
         timeVisible = true;
       });
     });
 
-    stopClock = scheduleOnSecond(() => {
+    const stopClock = scheduleOnSecond(() => {
       clock = getClock();
     });
 
-    stopVomnibarWatch = watchVomnibar((open) => {
+    const stopVomnibarWatch = watchVomnibar((open) => {
       vomnibarOpen = open;
     });
 
-    showGreeting();
-    void loadQuote();
-  });
+    const greetingShowTimer = window.setTimeout(() => {
+      greetingVisible = true;
+    }, 120);
+    const greetingHideTimer = window.setTimeout(() => {
+      greetingVisible = false;
+    }, 120 + greetingEnterMs + greetingVisibleMs);
 
-  onDestroy(() => {
-    quoteController?.abort();
-    stopClock?.();
-    stopVomnibarWatch?.();
-    if (timeVisibleFrame !== undefined) window.cancelAnimationFrame(timeVisibleFrame);
-    for (const timer of greetingTimers) window.clearTimeout(timer);
-    greetingTimers.clear();
+    const quoteController = new AbortController();
+    void loadQuote(quoteController.signal);
+
+    return () => {
+      quoteController.abort();
+      stopClock();
+      stopVomnibarWatch();
+      window.cancelAnimationFrame(timeVisibleFrame);
+      window.clearTimeout(greetingShowTimer);
+      window.clearTimeout(greetingHideTimer);
+    };
   });
 </script>
 

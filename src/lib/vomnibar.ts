@@ -45,31 +45,13 @@ function observeShadowRoots(
   }
 }
 
-function observeFrame(
-  frame: HTMLIFrameElement,
-  emitVisibility: (frame: HTMLIFrameElement) => void,
-  observedFrames: WeakSet<HTMLIFrameElement>,
-  observers: Set<MutationObserver>,
-): void {
-  if (observedFrames.has(frame)) return;
-  observedFrames.add(frame);
-
-  const observer = new MutationObserver(() => emitVisibility(frame));
-  observer.observe(frame, {
-    attributes: true,
-    attributeFilter: ["class", "style"],
-  });
-  observers.add(observer);
-}
-
 export function watchVomnibar(listener: Listener): () => void {
   let stopped = false;
-  let syncQueued = false;
   let syncFrame: number | undefined;
   let currentFrame: HTMLIFrameElement | null = null;
+  let frameObserver: MutationObserver | undefined;
   let scanCount = 0;
   let scanTimer: number | undefined;
-  const observedFrames = new WeakSet<HTMLIFrameElement>();
   const observedShadowRoots = new WeakSet<ShadowRoot>();
   const observers = new Set<MutationObserver>();
 
@@ -79,20 +61,27 @@ export function watchVomnibar(listener: Listener): () => void {
   };
 
   const scheduleSync = () => {
-    if (stopped || syncQueued) return;
-    syncQueued = true;
+    if (stopped || syncFrame !== undefined) return;
 
     syncFrame = window.requestAnimationFrame(() => {
-      syncQueued = false;
       syncFrame = undefined;
       if (stopped) return;
 
       observeShadowRoots(scheduleSync, observedShadowRoots, observers);
 
       const frame = findFrame();
-      currentFrame = frame;
-      if (frame) {
-        observeFrame(frame, emitVisibility, observedFrames, observers);
+      if (frame !== currentFrame) {
+        frameObserver?.disconnect();
+        currentFrame = frame;
+        frameObserver = undefined;
+
+        if (frame) {
+          frameObserver = new MutationObserver(() => emitVisibility(currentFrame));
+          frameObserver.observe(frame, {
+            attributes: true,
+            attributeFilter: ["class", "style"],
+          });
+        }
       }
 
       emitVisibility(frame);
@@ -107,8 +96,8 @@ export function watchVomnibar(listener: Listener): () => void {
   scanTimer = window.setInterval(() => {
     scanCount += 1;
     scheduleSync();
-    if (scanCount > 120 || currentFrame) {
-      if (scanTimer !== undefined) window.clearInterval(scanTimer);
+    if (scanCount >= 120 || currentFrame) {
+      window.clearInterval(scanTimer);
       scanTimer = undefined;
     }
   }, 250);
@@ -117,6 +106,7 @@ export function watchVomnibar(listener: Listener): () => void {
     stopped = true;
     if (syncFrame !== undefined) window.cancelAnimationFrame(syncFrame);
     if (scanTimer !== undefined) window.clearInterval(scanTimer);
+    frameObserver?.disconnect();
     for (const observer of observers) observer.disconnect();
     observers.clear();
   };

@@ -1,19 +1,12 @@
 export const styles = String.raw`
 :root {
   color-scheme: dark;
-  --znt-rosewater: 245 224 220;
   --znt-mauve: 203 166 247;
-  --znt-blue: 137 180 250;
   --znt-lavender: 180 190 254;
   --znt-text: 205 214 244;
-  --znt-subtext-1: 186 194 222;
   --znt-subtext-0: 166 173 200;
-  --znt-surface-2: 88 91 112;
-  --znt-surface-1: 69 71 90;
   --znt-surface-0: 49 50 68;
   --znt-base: 30 30 46;
-  --znt-mantle: 24 24 37;
-  --znt-crust: 17 17 27;
   --znt-shadow: 17 17 27;
   --znt-corner-gap: clamp(18px, 2.4vw, 34px);
   --znt-vomnibar-shade-opacity: 0.24;
@@ -24,19 +17,12 @@ export const styles = String.raw`
 @media (prefers-color-scheme: light) {
   :root {
     color-scheme: light;
-    --znt-rosewater: 220 138 120;
     --znt-mauve: 136 57 239;
-    --znt-blue: 30 102 245;
     --znt-lavender: 114 135 253;
     --znt-text: 76 79 105;
-    --znt-subtext-1: 92 95 119;
     --znt-subtext-0: 108 111 133;
-    --znt-surface-2: 172 176 190;
-    --znt-surface-1: 188 192 204;
     --znt-surface-0: 204 208 218;
     --znt-base: 239 241 245;
-    --znt-mantle: 230 233 239;
-    --znt-crust: 220 224 232;
     --znt-shadow: 76 79 105;
     --znt-vomnibar-shade-opacity: 0.16;
   }
@@ -221,7 +207,6 @@ body > img {
   align-items: center;
   color: rgb(var(--znt-mauve));
   transform: translateX(-50%);
-  transition: opacity 240ms var(--znt-ease-soft);
 }
 
 .znt-footer-art {
@@ -274,7 +259,6 @@ body > img {
     0 0 36px rgb(var(--znt-mauve) / 0.22),
     0 6px 18px rgb(var(--znt-shadow) / 0.18);
   opacity: 0.92;
-  transition: opacity 240ms var(--znt-ease-soft);
 }
 
 .znt-avatar img {
@@ -325,12 +309,7 @@ body > img {
 @media (prefers-reduced-motion: reduce) {
   .znt-page::after,
   .znt-time-stack,
-  .znt-footer,
   .znt-quote {
-    transition: none;
-  }
-
-  .znt-avatar {
     transition: none;
   }
 
