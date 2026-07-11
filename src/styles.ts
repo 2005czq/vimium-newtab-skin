@@ -312,11 +312,6 @@ body > img {
   .znt-quote {
     transition: none;
   }
-
-  .znt-clock-colon {
-    animation: none;
-    opacity: 1;
-  }
 }
 
 `;
