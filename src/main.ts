@@ -9,7 +9,6 @@ function mount() {
 
   const root = document.createElement("div");
   root.id = "znt-root";
-  root.setAttribute("aria-hidden", "true");
   document.body.appendChild(root);
 
   mountSvelte(App, { target: root });

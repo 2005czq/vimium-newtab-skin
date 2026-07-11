@@ -253,6 +253,7 @@ body > img {
   height: clamp(38px, 3.5vw, 50px);
   display: block;
   overflow: hidden;
+  pointer-events: auto;
   border-radius: clamp(9px, 0.8vw, 12px);
   box-shadow:
     0 0 16px rgb(var(--znt-lavender) / 0.34),
