@@ -219,6 +219,7 @@ body > img {
 
 .znt-quote {
   width: 100%;
+  min-height: 2.7em;
   margin-top: 6px;
   padding: 0;
   border: 0;
