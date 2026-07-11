@@ -53,6 +53,7 @@ body > img {
   z-index: 1;
   overflow: hidden;
   pointer-events: none;
+  user-select: none;
   color: rgb(var(--znt-text));
   font-family:
     "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono",

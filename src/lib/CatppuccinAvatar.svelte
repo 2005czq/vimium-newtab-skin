@@ -8,10 +8,11 @@
   href="https://catppuccin.com/"
   target="_blank"
   rel="noreferrer"
+  draggable="false"
   aria-label="Catppuccin homepage"
 >
   <picture aria-hidden="true">
     <source media="(prefers-color-scheme: light)" srcset={latteAvatar} />
-    <img src={macchiatoAvatar} alt="" />
+    <img src={macchiatoAvatar} alt="" draggable="false" />
   </picture>
 </a>
