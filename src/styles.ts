@@ -56,8 +56,8 @@ body > img {
   user-select: none;
   color: rgb(var(--znt-text));
   font-family:
-    "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, "Liberation Mono",
-    monospace;
+    "Maple Mono NF CN", "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas,
+    "Liberation Mono", monospace;
   background: rgb(var(--znt-base));
 }
 
