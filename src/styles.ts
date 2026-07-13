@@ -58,6 +58,7 @@ body > img {
   font-family:
     "Maple Mono NF CN", "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas,
     "Liberation Mono", monospace;
+  font-feature-settings: "cv01", "cv02", "cv61", "cv66", "cv97", "ss03", "ss05", "ss07", "ss08", "ss11";
   background: rgb(var(--znt-base));
 }
 
@@ -122,7 +123,7 @@ body > img {
   font-weight: 250;
   line-height: 1;
   letter-spacing: 0;
-  font-feature-settings: "tnum" 1, "zero" 1;
+  font-feature-settings: "tnum" 1, "zero" 1, "cv01", "cv02", "cv61", "cv66", "cv97", "ss03", "ss05", "ss07", "ss08", "ss11";
   font-variant-numeric: tabular-nums;
   text-shadow:
     0 0 18px rgb(var(--znt-lavender) / 0.32),

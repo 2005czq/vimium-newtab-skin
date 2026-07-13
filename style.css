@@ -32,6 +32,7 @@
   --ctp-crust: #11111b;
   --vimium-ui-font: "Maple Mono NF CN", "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
   --vimium-mono-font: "Maple Mono NF CN", "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  font-feature-settings: "cv01", "cv02", "cv61", "cv66", "cv97", "ss03", "ss05", "ss07", "ss08", "ss11";
   --vimium-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --vimium-shadow: 0 18px 48px rgb(17 17 27 / 64%);
 }
